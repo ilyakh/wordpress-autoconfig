@@ -1,6 +1,5 @@
-from subprocess import call
 from random import randint
-
+from core import *
 
 VERSION = "3.5.2"
 PREFIX = "wordpress-"
@@ -12,29 +11,54 @@ URL = REPOSITORY + NAME
 
 TARGET_PATH = "project"
 
+ 
+
 if __name__ == "__main__":
 
-    call([
+    sh = shell()
+
+    sh < [
             "curl", 
             "-O",
             URL
-    ])
-    call([ 
+    ]
+
+    sh < [ 
             "tar", 
             "-xvf", 
             NAME
-    ])
-    call([
+    ]
+
+    sh < [
             "mv",
             "./wordpress/",
             TARGET_PATH
-    ])
-    call([
+    ]
+
+    sh < [
             "rm",
             NAME
-    ])
-    call([
+    ]
+
+    sh < [
+        "curl",
+        "-O",
+        "http://phpseclib.sourceforge.net/wordpress.zip"
+    ]
+
+    sh < [
+        "unzip",
+        "wordpress.zip",
+        "-d",
+        "./project/wp-content/plugins"
+    ]
+
+
+    # assign right privileges (always the final step!)
+    # remember to edit file and fill in your user and group names
+    sh < [
             "sh",
             "modconfig.sh"
-    ])
+    ]
     
+

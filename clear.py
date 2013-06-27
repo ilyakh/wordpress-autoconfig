@@ -1,6 +1,4 @@
-from subprocess import call
-from random import randint
-
+from core import *
 
 VERSION = "3.5.2"
 PREFIX = "wordpress-"
@@ -14,16 +12,18 @@ TARGET_PATH = "project"
 
 if __name__ == "__main__":
 
-    call([
+    sh = shell()
+
+    sh < [
             "rm", 
             "-rf",
             "wordpress"
-    ])
+    ]
     
-    call([
+    sh < [
             "rm",
             "-rf",
             "project"
-    ])
+    ]
 
     
